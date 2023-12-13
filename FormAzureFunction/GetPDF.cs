@@ -13,11 +13,19 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace FormAzureFunction
 {
+
+
+
     public class GetPDF
     {
+
+      
+
+
         private readonly ILogger<GetPDF> _logger;
 
         public GetPDF(ILogger<GetPDF> log)
@@ -43,11 +51,44 @@ namespace FormAzureFunction
             string responseMessage = string.IsNullOrEmpty(submissionId)
                 ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
                 : $"Hello, {submissionId}. Action OK.";
+            string baseUrl = "https://devformioapi.hema-quebec.qc.ca/api-dev/";
+
+            loginRequest objToSend = new loginRequest();
+        objToSend.data = new loginObject();
+            objToSend.data.email = "bob@aa.com";
+            objToSend.data.password = "Hemaqc01";
+
+          
+
+          string json = JsonConvert.SerializeObject(objToSend);
 
 
+            HttpRequestMessage request = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Post,
+                Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json"),
+                RequestUri = new Uri(baseUrl + "user/login")
+            };
+
+            HttpClient httpClient = new HttpClient();
+
+            HttpResponseMessage response = await httpClient.SendAsync(request);
+            //var obj = await response.Content.ReadAsStringAsync();
+            var token = response.Headers.FirstOrDefault(i => i.Key == "x-jwt-token").Value.FirstOrDefault();
 
 
-            return new OkObjectResult(responseMessage);
+            return new OkObjectResult(token);
         }
+    }
+
+    public class loginRequest
+    {
+        public loginObject data { get; set; }
+    }
+
+    public class loginObject
+    {
+        public string email { get; set; }
+        public string password { get; set; }
     }
 }
