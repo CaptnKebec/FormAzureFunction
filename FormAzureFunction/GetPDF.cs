@@ -115,6 +115,8 @@ namespace FormAzureFunction
             HttpResponseMessage response3 = await httpClient.SendAsync(request3);
             var adminToken = response3.Headers.FirstOrDefault(i => i.Key == "x-jwt-token").Value.FirstOrDefault();
 
+            var err = "";
+
             try
             {
                 string allowURL = "GET:/project/" +
@@ -142,7 +144,7 @@ namespace FormAzureFunction
                 HttpResponseMessage response4 = await httpClient.SendAsync(request4);
 
                 var dTokenData = await response4.Content.ReadAsStringAsync();
-
+                err = dTokenData;
                 dynamic dTokenObj = JsonConvert.DeserializeObject<dynamic>(dTokenData);
 
                 dynamic dToken = dTokenObj.key;
@@ -151,7 +153,7 @@ namespace FormAzureFunction
             }
             catch (Exception ex)
             {
-                return new OkObjectResult(ex.Message + "====" + ex.StackTrace);
+                return new OkObjectResult(ex.Message + "====" + ex.StackTrace + "=====" + err );
 
             }
 
