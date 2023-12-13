@@ -144,6 +144,11 @@ namespace FormAzureFunction
 
                 HttpResponseMessage response4 = await httpClient.SendAsync(request4);
 
+                if (response4.StatusCode != HttpStatusCode.OK)
+                {
+                    return new OkObjectResult("Error: " + response4.StatusCode.ToString());
+                }
+
                 var dTokenData = await response4.Content.ReadAsStringAsync();
                 err = dTokenData;
                 dynamic dTokenObj = JsonConvert.DeserializeObject<dynamic>(dTokenData);
