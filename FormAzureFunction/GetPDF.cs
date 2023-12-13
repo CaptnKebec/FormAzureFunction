@@ -115,29 +115,40 @@ namespace FormAzureFunction
             HttpResponseMessage response3 = await httpClient.SendAsync(request3);
             var adminToken = response3.Headers.FirstOrDefault(i => i.Key == "x-jwt-token").Value.FirstOrDefault();
 
-            //string allowURL = "GET:/project/" +
-            //        submissionProjectId +
-            //        "/form/" +
-            //        submissionFormId +
-            //        "/submission/" +
-            //        submissionId +
-            //        "/download";
+            try
+            {
+                string allowURL = "GET:/project/" +
+                   submissionProjectId +
+                   "/form/" +
+                   submissionFormId +
+                   "/submission/" +
+                   submissionId +
+                   "/download";
 
-            //HttpRequestMessage request4 = new HttpRequestMessage()
-            //{
-            //    Headers = {
-            //        { "x-jwt-token", adminToken  } ,
-            //        { "x-expire", "3600"  },
-            //        { "x-allow", allowURL }
-            //    },
-            //    Method = HttpMethod.Get,
-            //    RequestUri = new Uri("https://devformioapi.hema-quebec.qc.ca/project/" +
-            //    submissionProjectId +
-            //    "/" +
-            //    "token")
-            //};
+                HttpRequestMessage request4 = new HttpRequestMessage()
+                {
+                    Headers = {
+                    { "x-jwt-token", adminToken  } ,
+                    { "x-expire", "3600"  },
+                    { "x-allow", allowURL }
+                },
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri("https://devformioapi.hema-quebec.qc.ca/project/" +
+                    submissionProjectId +
+                    "/" +
+                    "token")
+                };
 
-            //HttpResponseMessage response4 = await httpClient.SendAsync(request4);
+                HttpResponseMessage response4 = await httpClient.SendAsync(request4);
+            }
+            catch (Exception ex)
+            {
+                return new OkObjectResult(ex.Message + "====" + ex.StackTrace);
+
+            }
+
+
+           
 
             //var dTokenData = await response4.Content.ReadAsStringAsync();
 
@@ -157,10 +168,10 @@ namespace FormAzureFunction
 
             //HttpRequestMessage request5 = new HttpRequestMessage()
             //{
-                
+
             //    Method = HttpMethod.Get,
             //    RequestUri = new Uri(downloadURL)
-                
+
             //};
 
             //HttpResponseMessage response5 = await httpClient.SendAsync(request5);
