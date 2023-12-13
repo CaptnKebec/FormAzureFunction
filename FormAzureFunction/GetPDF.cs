@@ -115,45 +115,45 @@ namespace FormAzureFunction
             HttpResponseMessage response3 = await httpClient.SendAsync(request3);
             var adminToken = response3.Headers.FirstOrDefault(i => i.Key == "x-jwt-token").Value.FirstOrDefault();
 
-            string allowURL = "GET:/project/" +
-                    submissionProjectId +
-                    "/form/" +
-                    submissionFormId +
-                    "/submission/" +
-                    submissionId +
-                    "/download";
+            //string allowURL = "GET:/project/" +
+            //        submissionProjectId +
+            //        "/form/" +
+            //        submissionFormId +
+            //        "/submission/" +
+            //        submissionId +
+            //        "/download";
 
-            HttpRequestMessage request4 = new HttpRequestMessage()
-            {
-                Headers = {
-                    { "x-jwt-token", adminToken  } ,
-                    { "x-expire", "3600"  },
-                    { "x-allow", allowURL }
-                },
-                Method = HttpMethod.Get,
-                RequestUri = new Uri("https://devformioapi.hema-quebec.qc.ca/project/" +
-                submissionProjectId +
-                "/" +
-                "token")
-            };
+            //HttpRequestMessage request4 = new HttpRequestMessage()
+            //{
+            //    Headers = {
+            //        { "x-jwt-token", adminToken  } ,
+            //        { "x-expire", "3600"  },
+            //        { "x-allow", allowURL }
+            //    },
+            //    Method = HttpMethod.Get,
+            //    RequestUri = new Uri("https://devformioapi.hema-quebec.qc.ca/project/" +
+            //    submissionProjectId +
+            //    "/" +
+            //    "token")
+            //};
 
-            HttpResponseMessage response4 = await httpClient.SendAsync(request4);
+            //HttpResponseMessage response4 = await httpClient.SendAsync(request4);
 
-            var dTokenData = await response4.Content.ReadAsStringAsync();
+            //var dTokenData = await response4.Content.ReadAsStringAsync();
 
-            dynamic dTokenObj = JsonConvert.DeserializeObject<dynamic>(dTokenData);
+            //dynamic dTokenObj = JsonConvert.DeserializeObject<dynamic>(dTokenData);
 
-            dynamic dToken = dTokenObj.key;
+            //dynamic dToken = dTokenObj.key;
 
-            string downloadToken  = dToken.ToString();
+            //string downloadToken  = dToken.ToString();
 
-            string downloadURL = baseUrl +
-                "form/" +
-                submissionFormId +
-                "/submission/" +
-                submissionId +
-                "/download?token=" +
-                downloadToken;
+            //string downloadURL = baseUrl +
+            //    "form/" +
+            //    submissionFormId +
+            //    "/submission/" +
+            //    submissionId +
+            //    "/download?token=" +
+            //    downloadToken;
 
             //HttpRequestMessage request5 = new HttpRequestMessage()
             //{
@@ -170,7 +170,7 @@ namespace FormAzureFunction
             //return new FileStreamResult(aa, "application/pdf");
 
 
-            return new OkObjectResult(downloadURL);
+            return new OkObjectResult(adminToken);
         }
     }
 
