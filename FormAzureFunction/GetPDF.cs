@@ -116,6 +116,7 @@ namespace FormAzureFunction
             var adminToken = response3.Headers.FirstOrDefault(i => i.Key == "x-jwt-token").Value.FirstOrDefault();
 
             var err = "";
+            string downloadToken;
 
             try
             {
@@ -149,7 +150,7 @@ namespace FormAzureFunction
 
                 dynamic dToken = dTokenObj.key;
 
-                string downloadToken = dToken.ToString();
+                downloadToken = dToken.ToString();
             }
             catch (Exception ex)
             {
@@ -160,15 +161,15 @@ namespace FormAzureFunction
 
 
 
-          
 
-            //string downloadURL = baseUrl +
-            //    "form/" +
-            //    submissionFormId +
-            //    "/submission/" +
-            //    submissionId +
-            //    "/download?token=" +
-            //    downloadToken;
+
+            string downloadURL = baseUrl +
+                "form/" +
+                submissionFormId +
+                "/submission/" +
+                submissionId +
+                "/download?token=" +
+                downloadToken;
 
             //HttpRequestMessage request5 = new HttpRequestMessage()
             //{
@@ -185,7 +186,7 @@ namespace FormAzureFunction
             //return new FileStreamResult(aa, "application/pdf");
 
 
-            return new OkObjectResult(adminToken);
+            return new OkObjectResult(downloadURL);
         }
     }
 
