@@ -135,7 +135,7 @@ namespace FormAzureFunction
                     { "x-allow", allowURL }
                 },
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri("https://devformioapi.hema-quebec.qc.ca/project/" +
+                    RequestUri = new Uri("https://hq-dev-formioapi-wa.hq.intra/project/" +
                     submissionProjectId +
                     "/" +
                     "token")
