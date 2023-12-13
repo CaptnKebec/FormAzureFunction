@@ -167,10 +167,10 @@ namespace FormAzureFunction
 
             var aa = await response5.Content.ReadAsStreamAsync();
 
-            return new FileStreamResult(aa, "application/pdf");
+            //return new FileStreamResult(aa, "application/pdf");
 
 
-            //return new OkObjectResult(token);
+            return new OkObjectResult(downloadURL);
         }
     }
 
