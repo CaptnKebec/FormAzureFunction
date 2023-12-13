@@ -155,17 +155,17 @@ namespace FormAzureFunction
                 "/download?token=" +
                 downloadToken;
 
-            HttpRequestMessage request5 = new HttpRequestMessage()
-            {
+            //HttpRequestMessage request5 = new HttpRequestMessage()
+            //{
                 
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(downloadURL)
+            //    Method = HttpMethod.Get,
+            //    RequestUri = new Uri(downloadURL)
                 
-            };
+            //};
 
-            HttpResponseMessage response5 = await httpClient.SendAsync(request5);
+            //HttpResponseMessage response5 = await httpClient.SendAsync(request5);
 
-            var aa = await response5.Content.ReadAsStreamAsync();
+            //var aa = await response5.Content.ReadAsStreamAsync();
 
             //return new FileStreamResult(aa, "application/pdf");
 
