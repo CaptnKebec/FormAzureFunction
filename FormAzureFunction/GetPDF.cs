@@ -140,6 +140,14 @@ namespace FormAzureFunction
                 };
 
                 HttpResponseMessage response4 = await httpClient.SendAsync(request4);
+
+                var dTokenData = await response4.Content.ReadAsStringAsync();
+
+                dynamic dTokenObj = JsonConvert.DeserializeObject<dynamic>(dTokenData);
+
+                dynamic dToken = dTokenObj.key;
+
+                string downloadToken = dToken.ToString();
             }
             catch (Exception ex)
             {
@@ -148,15 +156,9 @@ namespace FormAzureFunction
             }
 
 
-           
 
-            //var dTokenData = await response4.Content.ReadAsStringAsync();
 
-            //dynamic dTokenObj = JsonConvert.DeserializeObject<dynamic>(dTokenData);
-
-            //dynamic dToken = dTokenObj.key;
-
-            //string downloadToken  = dToken.ToString();
+          
 
             //string downloadURL = baseUrl +
             //    "form/" +
